@@ -23,6 +23,7 @@ jobs:
           cache: gradle
 
       - name: Grant gradlew permission
+  working-directory: git
         run: chmod +x ./gradlew
 
       - name: Print versions (debug)
@@ -39,6 +40,7 @@ jobs:
           sed -n '1,320p' app/build.gradle || true
 
       - name: Build Debug APK (stacktrace)
+  working-directory: git
         run: ./gradlew assembleDebug --stacktrace --info
 
       - name: Upload APK
