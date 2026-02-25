@@ -1,20 +1,16 @@
 package com.chessoverlay
 
 /**
- * Stub temporal para compilar sin OpenCV completo.
- * El módulo :opencv de este repo NO incluye imgproc (Imgproc, MatOfPoint2f, etc),
- * por eso fallaba el build en GitHub Actions.
- *
- * TODO: cuando se integre el OpenCV Android SDK completo, restaurar detección real.
+ * Stub temporal:
+ * El repo OpenCV está incompleto, así que devolvemos null para no romper la app.
+ * Cuando metas OpenCV real, aquí va la implementación.
  */
-class ChessBoardDetector {
+object ChessBoardDetector {
 
-  data class Result(
-    val ok: Boolean,
-    val message: String = "OpenCV not bundled (stub)"
-  )
-
-  fun detect(): Result {
-    return Result(ok = false)
-  }
+    /**
+     * Detecta tablero y devuelve FEN, o null si no se pudo.
+     */
+    fun detectBoardAndExtractFEN(/* TODO: agrega params reales si tu ChessAnalyzer los pasa */): String? {
+        return null
+    }
 }
