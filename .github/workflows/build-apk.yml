@@ -8,7 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -19,12 +18,16 @@ jobs:
           distribution: temurin
           java-version: "17"
 
-      - name: Grant gradlew permission (wrapper en git/)
-        run: chmod +x git/gradlew
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
 
-      - name: Build Debug (using wrapper in git/)
-        run: |
-          git/gradlew -p . assembleDebug --stacktrace
+      - name: Set up Gradle 8.1.1
+        uses: gradle/gradle-build-action@v3
+        with:
+          gradle-version: 8.1.1
+
+      - name: Build Debug (no wrapper)
+        run: gradle assembleDebug --stacktrace
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
