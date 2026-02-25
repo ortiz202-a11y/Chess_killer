@@ -1,16 +1,27 @@
 package com.chessoverlay
 
 /**
- * Stub temporal:
- * El repo OpenCV está incompleto, así que devolvemos null para no romper la app.
- * Cuando metas OpenCV real, aquí va la implementación.
+ * STUB temporal para destrabar CI.
+ * El módulo OpenCV en este repo está incompleto.
+ *
+ * Este stub es compatible con:
+ *  - ChessBoardDetector()  (instanciación)
+ *  - detector.detectBoardAndExtractFEN(...)
+ *  - ChessBoardDetector.detectBoardAndExtractFEN(...)
+ *
+ * Acepta cualquier cantidad de argumentos (vararg) para no romper compilación
+ * mientras se conecta el OpenCV real.
  */
-object ChessBoardDetector {
+class ChessBoardDetector {
 
-    /**
-     * Detecta tablero y devuelve FEN, o null si no se pudo.
-     */
-    fun detectBoardAndExtractFEN(/* TODO: agrega params reales si tu ChessAnalyzer los pasa */): String? {
-        return null
+  fun detectBoardAndExtractFEN(vararg args: Any?): String? {
+    return null
+  }
+
+  companion object {
+    @JvmStatic
+    fun detectBoardAndExtractFEN(vararg args: Any?): String? {
+      return null
     }
+  }
 }
