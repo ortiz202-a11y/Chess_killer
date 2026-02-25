@@ -53,13 +53,14 @@ class OverlayService : Service() {
         layoutParams.x = 100
         layoutParams.y = 100
 
-        val overlayButton = overlayView?.findViewById<Button>(R.id.overlayButton)
-        overlayButton?.setOnClickListener {
+        val overlayButton = overlayView!!.findViewById<Button>(R.id.overlayButton)
+
+        overlayButton.setOnClickListener {
             analyzeChessPosition()
         }
 
-        // Make overlay draggable
-        overlayView?.setOnTouchListener(object : View.OnTouchListener {
+        // DRAG SOLO EN EL BOTÓN
+        overlayButton.setOnTouchListener(object : View.OnTouchListener {
             private var initialX = 0
             private var initialY = 0
             private var initialTouchX = 0f
@@ -72,7 +73,7 @@ class OverlayService : Service() {
                         initialY = layoutParams.y
                         initialTouchX = event.rawX
                         initialTouchY = event.rawY
-                        return true
+                        return false
                     }
                     MotionEvent.ACTION_MOVE -> {
                         layoutParams.x = initialX + (event.rawX - initialTouchX).toInt()
@@ -96,19 +97,13 @@ class OverlayService : Service() {
         chessAnalyzer?.analyzeCurrentPosition { bestMove ->
             overlayButton?.text = getString(R.string.overlay_button_text)
             overlayButton?.isEnabled = true
-            
+
             if (bestMove != null) {
-                showMoveHighlight(bestMove)
-                Toast.makeText(this, "أفضل نقلة: $bestMove", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Best move: $bestMove", Toast.LENGTH_LONG).show()
             } else {
-                Toast.makeText(this, "لم يتم العثور على رقعة شطرنج", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "No chessboard detected", Toast.LENGTH_LONG).show()
             }
         }
-    }
-
-    private fun showMoveHighlight(move: String) {
-        // TODO: Implement move highlighting overlay
-        // This will draw colored rectangles over the chess squares
     }
 
     private fun createNotificationChannel() {
@@ -126,7 +121,7 @@ class OverlayService : Service() {
     private fun createNotification(): Notification {
         return NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("Chess Overlay Active")
-            .setContentText("مساعد الشطرنج يعمل في الخلفية")
+            .setContentText("Overlay running")
             .setSmallIcon(R.drawable.ic_launcher_foreground)
             .build()
     }
