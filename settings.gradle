@@ -16,3 +16,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "Chess_killer"
 include(":app")
+
+include ':opencv'
+project(':opencv').projectDir = new File(rootDir, 'opencv')
